@@ -1,0 +1,57 @@
+<div class="money-moving-block">
+  <h2 class="table-name">Движение денежных средств</h2>
+  <hr class="money-moving-separator">
+  <table class="money-moving-table">
+    <thead class="thead-top">
+    <tr>
+      <th>Счет</th>
+      <th>Баланс</th>
+      <th>Январь 2022</th>
+      <th>Февраль 2022</th>
+      <th>Март 2022</th>
+      <th>Сальдо</th>
+      <th>Баланс</th>
+    </tr>
+    </thead>
+    <tbody>
+
+    <tr *ngFor="let entity of data.entityList">
+      <td>{{entity.accountName }} ({{entity.organizationName}})</td>
+      <td [appMoney]="entity.periodBeginBalance">{{entity.periodBeginBalance | money}}</td>
+      <td class="month-money" *ngFor="let month of entity.values">
+        <div class="month-money-amount" [appMoney]="month.debitAmount">
+          {{month.debitAmount | money}}
+        </div>
+        <div class="month-money-amount" [appMoney]="month.creditAmount">
+          {{month.creditAmount | money}}
+        </div>
+      </td>
+      <td [appMoney]="entity.periodEndBalance - entity.periodBeginBalance">
+        {{entity.periodEndBalance - entity.periodBeginBalance | money}}
+      </td>
+      <td [appMoney]="entity.periodEndBalance">{{entity.periodEndBalance | money}}</td>
+    </tr>
+
+    <tr>
+      <td>Сальдо</td>
+      <td></td>
+      <td [appMoney]="saldo" *ngFor="let saldo of saldosPerMonth">
+        {{saldo | money}}
+      </td>
+      <td [appMoney]="totalSaldo">{{totalSaldo | money}}</td>
+      <td></td>
+    </tr>
+    </tbody>
+    <thead class="thead-bottom">
+    <tr>
+      <th>Деньги</th>
+      <th [appMoney]="initialBalance">{{initialBalance | money}}</th>
+      <th [appMoney]="balance" *ngFor="let balance of balancesPerMonth">
+        {{ balance | money}}
+      </th>
+      <th></th>
+      <th [appMoney]="endBalance">{{endBalance | money}}</th>
+    </tr>
+    </thead>
+  </table>
+</div>

@@ -1,0 +1,173 @@
+$balance-column-width: 150px;
+$saldo-column-width: 150px;
+$money-row-height: 60px;
+@mixin box-shadow-for-column{
+  &::before{
+    box-shadow: -20px 0 20px -20px inset #DDD;
+    content: " ";
+    height: 100%;
+    top: 0;
+    left: -20px;
+    position: absolute;
+    width: 20px;
+  }
+}
+.money-moving-block{
+  font-family: 'Roboto', sans-serif;
+}
+.money-moving-separator{
+  border: 0;
+  background: #eef4ff;
+  height: 2px;
+}
+.table-name{
+  margin: 20px;
+}
+.money-moving-table{
+  scrollbar-color: #bfcfe3 #fff;
+  scrollbar-width: thin;
+  &::-webkit-scrollbar {
+    width: 5px;
+    height: 5px;
+  }
+  &::-webkit-scrollbar-track {
+    border-radius: 10px;
+  }
+  &::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    background: #bfcfe3;
+  }
+  &::-webkit-scrollbar-thumb:hover {
+    background: #a2b0d8;
+  }
+  &::-webkit-scrollbar-thumb:active {
+    background:  #8691cd;
+  }
+  height: 250px;
+  width: 1000px;
+  overflow: auto;
+  display: block;
+  position: relative;
+  border-collapse: separate;
+  border-spacing: 0;
+  margin: 80px 20px;
+  font-size: 14px;
+}
+
+thead{
+  z-index: 2;
+  position: sticky;
+}
+
+th{
+  box-sizing: border-box;
+  border: 1px solid #eef4ff;
+  display: block;
+  width: 220px;
+  padding: 20px 10px;
+  position: sticky;
+  top: 0;
+  background: #f8fafd;
+  &:first-child{
+    left: 0;
+    z-index: 2;
+    border-right: 0;
+    text-align: left;
+  }
+  &:nth-child(2){
+    left: 220px;
+    width: 120px;
+    z-index: 2;
+    border-left: 0;
+    text-align: right;
+  }
+  &:nth-last-child(2){
+    right: $balance-column-width;
+    width: $saldo-column-width;
+    @include box-shadow-for-column
+  }
+  &:last-child{
+    right: 0;
+    width: $balance-column-width;
+  }
+}
+
+.thead-top{
+  top: 0;
+  tr{
+    height: 80px;
+  }
+}
+.thead-bottom{
+  bottom: 0;
+  tr{
+    height: $money-row-height;
+  }
+}
+
+tr{
+  display: flex;
+  font-weight: bold;
+}
+
+tbody{
+  overflow: auto;
+  tr:last-child{
+    position: sticky;
+    bottom: $money-row-height;
+    z-index: 3;
+    font-weight: normal;
+    td:first-child {
+      text-align: left;
+    }
+    td:nth-last-child(2){
+      text-align: right;
+    }
+    td{
+      text-align: center;
+    }
+  }
+}
+
+td{
+  box-sizing: border-box;
+  border: 1px solid #eef4ff;
+  display: block;
+  width: 220px;
+  height: 50px;
+  padding: 10px;
+  background: #fff;
+  text-align: right;
+
+  &:first-child{
+    text-align: left;
+    position: sticky;
+    left: 0;
+    z-index: 1;
+    border-right: 0;
+  }
+  &:nth-child(2){
+    position: sticky;
+    left: 220px;
+    z-index: 1;
+    width: 120px;
+    border-left: 0;
+  }
+  &:last-child{
+    position: sticky;
+    right: 0;
+    width: $balance-column-width;
+  }
+  &:nth-last-child(2){
+    position: sticky;
+    width: $saldo-column-width;
+    right: $balance-column-width;
+    @include box-shadow-for-column
+  }
+}
+.month-money-amount{
+  width: 50%;
+}
+.month-money{
+  display: flex;
+}
